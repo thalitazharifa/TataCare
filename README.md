@@ -13,9 +13,6 @@ Introducing the extraordinary "Doctor Appointment System" - a state-of-the-art F
 
 - **Stunning Animations:** Enjoy visually captivating animations that enhance the user experience.
 
-## Screenshots
-
-<img src="./ui.png">
 
 ## Getting Started
 
@@ -53,10 +50,4 @@ We'll review your pull request and merge it if everything looks good!
 
 We would like to thank the Flutter community for their support and contributions.
 
-## Contact
-
-If you have any questions or suggestions regarding the Coffee app, feel free to contact us at rh676838@gmail.com 
-
----
-Thank you for joining us in revolutionizing healthcare accessibility with the Doctor Appointment System app! We hope you enjoy exploring the advanced UI design and the potential of healthcare technology. Happy doctor-patient interactions! 🩺💻
 
