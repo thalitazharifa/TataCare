@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hospital/screens/SeeAll.dart';
 import 'package:hospital/res/lists.dart';
+import 'package:hospital/screens/other.dart';
 import 'package:hospital/widgets/text_widget.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:hospital/screens/BMI.dart';
@@ -468,6 +469,11 @@ class _HomeState extends State<Home> {
             } else if (txt == "Virus"){
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return Virus();
+              }));
+            }
+            else if (txt == "Other") {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Other();
               }));
             }
           },
