@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "211382452854",
+    "project_id": "tatacare-6d1d8",
+    "storage_bucket": "tatacare-6d1d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211382452854:android:72445536ddf5d34f8d5557",
+        "android_client_info": {
+          "package_name": "com.example.hospital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7aSVL7lh54fsmKS3bSzQHnfY-bdYFZ0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

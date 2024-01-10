@@ -9,6 +9,7 @@ import 'package:hospital/screens/Kalkulator.dart';
 import 'package:hospital/screens/Grafik.dart';
 import 'Developer.dart';
 import 'KonversiSuhu.dart';
+import 'MedicalHistories.dart';
 import 'Start.dart';
 import 'Virus.dart';
 
@@ -443,7 +444,7 @@ class _HomeState extends State<Home> {
               category("assets/images/developer.png", "Dev", 8),
               category("assets/images/temp.png", "Temp", 8),
               category("assets/images/virus.png", "Virus", 10),
-              category("assets/images/heart.png", "Physo", 10),
+              category("assets/images/heart.png", "Health", 10),
               category("assets/images/app.png", "Other", 12),
             ],
           ),
@@ -469,6 +470,10 @@ class _HomeState extends State<Home> {
             } else if (txt == "Virus"){
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return Virus();
+              }));
+            } else if (txt == "Health"){
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Medical();
               }));
             }
             else if (txt == "Other") {

@@ -22,39 +22,49 @@ class _StatusGempaPageState extends State<StatusGempaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-          future: _future,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    leading: IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {return Home();
-                        }));
-                        },
-                    ),
-                    title: Text('Status Gempa'),
-                    backgroundColor: Colors.blue.shade900,
+        future: _future,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Home();
+                          },
+                        ),
+                      );
+                    },
                   ),
-                  SliverList.list(
-                      children: snapshot.data!.infogempa.gempa.map((e) {
-                        return GempaItem(gempa: e);
-                      }).toList()),
-                ],
-              );
-            }
-            if (snapshot.hasError) {
-              return Center(
-                child: Text('Error: ${snapshot.error}'),
-              );
-            }
-            return Center(
-              child: CircularProgressIndicator(),
+                  title: Text('Earthquake Status'),
+                  backgroundColor: Colors.blue.shade900,
+                  pinned: true, // Set this property to true
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    snapshot.data!.infogempa.gempa.map((e) {
+                      return GempaItem(gempa: e);
+                    }).toList(),
+                  ),
+                ),
+              ],
             );
-          }),
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
     );
   }
 }

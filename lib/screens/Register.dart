@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'Home.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -8,6 +12,20 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> with SingleTickerProviderStateMixin {
+  final FirebaseAuthServices _auth = FirebaseAuthServices();
+
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   bool position = false;
   double opacity = 0.0;
 
@@ -129,16 +147,19 @@ class _RegisterState extends State<Register> with SingleTickerProviderStateMixin
                         child: Column(
                           children: [
                             TextField(
+                              controller: _usernameController,
                               decoration: InputDecoration(
                                 labelText: "Full Name",
                               ),
                             ),
                             TextField(
+                              controller: _emailController,
                               decoration: InputDecoration(
                                 labelText: "Email",
                               ),
                             ),
                             TextField(
+                              controller: _passwordController,
                               decoration: InputDecoration(
                                 labelText: "Password",
                               ),
@@ -170,11 +191,8 @@ class _RegisterState extends State<Register> with SingleTickerProviderStateMixin
                       child: AnimatedOpacity(
                         opacity: opacity,
                         duration: const Duration(milliseconds: 400),
-                        child: InkWell(
-                          onTap: () {
-
-                            _showAlertDialog(context);
-                          },
+                        child: GestureDetector(
+                          onTap: _signUp,
                           child: Container(
                             height: 60,
                             margin: EdgeInsets.symmetric(horizontal: 20),
@@ -215,5 +233,20 @@ class _RegisterState extends State<Register> with SingleTickerProviderStateMixin
         ),
       ),
     );
+  }
+  void _signUp() async {
+    String? username = _usernameController.text;
+    String? email = _emailController.text;
+    String? password = _passwordController.text;
+
+    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+
+    if (user != null) {
+      print('Register successfully created');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Home()));
+    } else {
+      print('Sign up failed');
+    }
   }
 }

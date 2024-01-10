@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/screens/home.dart';
 import 'package:hospital/screens/Register.dart';
+
+import '../user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -10,6 +13,17 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
+  final FirebaseAuthServices _auth = FirebaseAuthServices();
+
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
   bool position = false;
   double opacity = 0.0;
 
@@ -74,11 +88,13 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         child: Column(
                           children: [
                             TextField(
+                              controller: _emailController,
                               decoration: InputDecoration(
-                                labelText: "Username",
+                                labelText: "E-mail",
                               ),
                             ),
                             TextField(
+                              controller: _passwordController,
                               decoration: InputDecoration(
                                 labelText: "Password",
                               ),
@@ -115,11 +131,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       child: AnimatedOpacity(
                         opacity: opacity,
                         duration: const Duration(milliseconds: 400),
-                        child: InkWell(
-                          onTap: () {
-                            // Navigasi ke halaman Home saat tombol "Login" ditekan
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
-                          },
+                        child: GestureDetector(
+                          onTap: _signIn,
                           child: Container(
                             height: 60,
                             margin: EdgeInsets.symmetric(horizontal: 20),
@@ -160,5 +173,19 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         ),
       ),
     );
+  }
+  void _signIn() async {
+    String? email = _emailController.text;
+    String? password = _passwordController.text;
+
+    User? user = await _auth.signInWithEmailAndPassword(email, password);
+
+    if (user != null) {
+      print('Sign In Succesful');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Home()));
+    } else {
+      print('Sign In Failed');
+    }
   }
 }
